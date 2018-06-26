@@ -3,12 +3,12 @@ package com.company.web.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Account")
+@Table(name = "mk_Account")
 public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
     private String userName;
     private String password;
 
@@ -27,5 +27,13 @@ public class Account {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

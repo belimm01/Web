@@ -3,12 +3,12 @@ package com.company.web.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "User")
+@Table(name = "mk_User")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
     private String firstName;
     private String secondName;
 
@@ -27,4 +27,11 @@ public class User {
         this.secondName = secondName;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }
