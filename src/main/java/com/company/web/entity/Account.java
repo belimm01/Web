@@ -1,10 +1,14 @@
 package com.company.web.entity;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "Account")
 public class Account {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
     private String userName;
     private String password;
 
