@@ -18,7 +18,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/home", "/about").permitAll()
-                .antMatchers("/admin/**").hasAnyRole("ADMIN")
+                .antMatchers("/user1/**").hasAnyRole("USER")
                 .antMatchers("/user/**").hasAnyRole("USER")
                 .anyRequest().authenticated()
                 .and()
@@ -35,6 +35,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
                 .withUser("user").password("{noop}user").roles("USER")
                 .and()
-                .withUser("admin").password("{noop}admin").roles("ADMIN");
+                .withUser("user1").password("{noop}user1").roles("USER1");
     }
 }
