@@ -5,12 +5,13 @@
 <body>
 <div th:fragment="footer">
     <br>
-    <br><br>
     <br>
-    <div class="container">
-
-        <footer>
+    <br>
+    <br>
+    <footer>
+        <div class="container">
             <!-- this is footer -->
+
             &copy; 2018 Jihoceska Univerzita.com
             <span sec:authorize="isAuthenticated()">
                 | Logged user: <span sec:authentication="name"></span> |
@@ -23,8 +24,9 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
 
 
-        </footer>
-    </div>
+                </div>
+
+    </footer>
 
 </div>
 </body>

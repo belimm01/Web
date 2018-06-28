@@ -1,49 +1,63 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <div th:replace="fragments/header :: header-css"/>
 </head>
 <body>
 
 <div th:replace="fragments/header :: header"/>
 
+
 <div class="container">
-
-    <div class="starter-template">
-
-        <div class="row">
-            <div class="col s12"><h5>Welcome: [[${#httpServletRequest.remoteUser}]]</h5></div>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <div class="col s6"><h5>Balance : </h5></div>
-            <div class="col s6">
-                <button class="waves-effect waves-light btn">Transfer</button>
+    <div class="row">
+        <div class="col s12 m3">
+            <div class="menu">
+                <ul class="side-nav fixed slide-out">
+                    <li><h5>Account: [[${#httpServletRequest.remoteUser}]]</h5></li>
+                    <li><h5 th:text="'Balance: ' + ${user.balance}"></h5></li>
+                    <li><h5><i class="material-icons prefix">contacts</i><a th:href="@{load}">  List</a></h5></li>
+                    <li><a class="btn-floating btn-large cyan pulse" th:href="@{/logout}">Exit</a></li>
+                </ul>
             </div>
         </div>
-        <br>
-        <br>
-        <br>
-        <a th:href="@{/load}" value="Sign Up">
-            List
-        </a>
-        <br>
-        <br>
-        <br>
-        <form th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out"/>
-        </form>
-
+        <div class="col s12 m9">
+            <div class="content">
+                <div><h5>Welcome: [[${#httpServletRequest.remoteUser}]]</h5></div>
+                <br>
+                <div><h5>Transaction</h5></div>
+                <form th:action="@{/transfer}" method="post" style="background-color: white;">
+                    <fieldset>
+                        <div class="input-field">
+                            <i class="material-icons prefix">account_circle</i>
+                            <input type="text" th:name="userId" id="userId" class="form-control input-lg"
+                                   placeholder="User ID" required="true" autofocus="true"/>
+                        </div>
+                        <div class="input-field">
+                            <i class="material-icons prefix">attach_money</i>
+                            <input type="text" th:name="amount" id="amount" class="form-control input-lg"
+                                   placeholder="Amount" required="true"/>
+                        </div>
+                        <input type="submit" class="btn deep-orange darken-2" value="Transaction"/>
+                    </fieldset>
+                </form>
+                <div><h5>Recharge</h5></div>
+                <div>
+                    <form th:action="@{/recharge}" method="post" style="background-color: white;">
+                        <fieldset>
+                            <div class="input-field">
+                                <i class="material-icons prefix">attach_money</i>
+                                <input type="text" th:name="amount" id="recharge" class="form-control input-lg"
+                                       placeholder="Amount" required="true"/>
+                            </div>
+                            <input type="submit" class="btn deep-orange darken-2" value="Recharge"/>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-
 </div>
-
-<br>
-<br>
-<br>
 <!-- /.container -->
 <div th:replace="fragments/footer :: footer"/>
 

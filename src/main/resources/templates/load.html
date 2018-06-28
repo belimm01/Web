@@ -6,15 +6,26 @@
 <body>
 
 <div th:replace="fragments/header :: header"/>
-
 <div class="container">
-    <p th:text="'id: ' + ${user.user_id}" />
-    <p th:text="'Name: ' + ${user.user_name}" />
+    <h3> List </h3>
+    <table>
+        <thead>
+        <tr>
+            <th>User ID</th>
+            <th>User Name</th>
+        </tr>
+        <tr th:each="user: ${users}">
+            <th th:text="${user.id}"></th>
+            <th th:text="${user.username}"></th>
+        </tr>
+        </thead>
+    </table>
 </div>
 
-<br>
-<br>
-<br>
+<a th:href="@{/user}" value="Back">
+    Back
+</a>
+
 <!-- /.container -->
 <div th:replace="fragments/footer :: footer"/>
 
