@@ -13,9 +13,18 @@
 
     <div class="row" style="margin-top:20px">
         <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-            <form th:action="@{/registr}" method="post">
+            <br>
+            <br>
+            <br>
+            <br>
+            <form th:action="@{/registration}" method="post">
                 <fieldset>
                     <h1>Please Sign Up</h1>
+                    <div th:if="${param.logout}">
+                        <div class="alert alert-info">
+                            You have been logged out.
+                        </div>
+                    </div>
                     <div class="form-group">
                         <input type="text" name="username" id="username" class="form-control input-lg"
                                placeholder="UserName" required="true" autofocus="true"/>
@@ -24,16 +33,25 @@
                         <input type="password" name="password" id="password" class="form-control input-lg"
                                placeholder="Password" required="true"/>
                     </div>
+                    <div class="form-group">
+                        <input type="password" name="passwordConfirm" id="passwordConfirm" class="form-control input-lg"
+                               placeholder="passwordConfirm" required="true"/>
+                    </div>
 
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
-                            <input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign In"/>
+                            <input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign Up"/>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                         </div>
                     </div>
                 </fieldset>
             </form>
+            <br>
+            <br>
+            <button th:href="@{/login}" value="Sign In">
+                Sign in
+            </button>
         </div>
     </div>
 
