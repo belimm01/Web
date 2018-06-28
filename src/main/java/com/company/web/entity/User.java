@@ -1,16 +1,19 @@
 package com.company.web.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements Serializable {
 
-    @Column(name = "id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "user_id")
     private Long id;
 
-    @Column(name = "balance")
+    @Column(name = "user_balance")
     private int balance;
 
     @Column(name = "password")
@@ -19,13 +22,12 @@ public class User {
     @Column(name = "user_name")
     private String username;
 
+    @Transient
     private String passwordConfirm;
 
-    @ElementCollection(targetClass=String.class)
+    @Transient
     private Set<Role> roles;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -50,7 +52,6 @@ public class User {
         this.password = password;
     }
 
-    @Transient
     public String getPasswordConfirm() {
         return passwordConfirm;
     }

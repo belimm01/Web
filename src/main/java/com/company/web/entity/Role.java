@@ -2,22 +2,24 @@ package com.company.web.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
 @Table(name = "role")
-public class Role {
+public class Role implements Serializable {
 
-    @Column(name = "id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "role_id")
     private Long id;
 
     @Column(name = "role_name")
     private String name;
 
+    @Transient
     private Set<User> users;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }

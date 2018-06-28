@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 // You will now be able to use JpaRepository’s methods
 // like save(),findOne(),findAll(),count(),delete()etc.
 
+@Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(String username);
 }
