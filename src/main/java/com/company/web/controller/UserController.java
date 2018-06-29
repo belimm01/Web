@@ -16,10 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.lang.reflect.Array;
 import java.security.Principal;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 @Controller
 public class UserController {
@@ -80,20 +77,24 @@ public class UserController {
     @RequestMapping(value = "/transfer", method = RequestMethod.POST)
     public String transfer(@RequestParam Long userId, @RequestParam Integer amount, Principal principal) throws Exception {
         User sender = userRepository.findByUsername(principal.getName());
-        if (amount<0){
-            throw new Exception("Incorrect amount");
-        }
+
         if (!userRepository.findById(userId).isPresent()) {
             throw new Exception("Does not exist");
         }
-        User consignee = userRepository.findById(userId).get();
+        User recipient = userRepository.findById(userId).get();
+       transferMoney(sender,recipient,amount);
+       return "redirect:/user";
+    }
+
+    public void transferMoney(User sender, User recipient, int amount) throws Exception {
+        if (amount<0){
+            throw new Exception("Incorrect amount");
+        }
         if (sender.getBalance() < amount) {
             throw new Exception("No money no honey");
         }
         sender.setBalance(sender.getBalance() - amount);
-
-        consignee.setBalance(consignee.getBalance() + amount);
-        return "redirect:/user";
+        recipient.setBalance(recipient.getBalance() + amount);
     }
 
     @Transactional
