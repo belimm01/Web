@@ -75,7 +75,14 @@ public class UserController {
         model.addAttribute("user", byUsername);
         return "user";
     }
-
+/**
+ * Check if sender have sufficient amount of money, if so, transfer it to recipient.
+ * @param userId Id of recipient in form of long.
+ * @param amount amount of money to send from sender.
+ * @param principal sender
+ * @return redirects to/user
+ * @throws Exception if recipient is not found
+ */
     @Transactional
     @RequestMapping(value = "/transfer", method = RequestMethod.POST)
     public String transfer(@RequestParam Long userId, @RequestParam Integer amount, Principal principal) throws Exception {
