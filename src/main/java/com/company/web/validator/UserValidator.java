@@ -9,16 +9,25 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 @Component
+/**
+ * Validator of user account.
+ */
 public class UserValidator implements Validator {
     @Autowired
     private UserService userService;
 
     @Override
+    /**
+     * 
+     */
     public boolean supports(Class<?> aClass) {
         return User.class.equals(aClass);
     }
 
     @Override
+    /**
+     * Validate new user username and password. Username have to be 6 to 32 characters long and password between 8 and 32. Username can't be null.
+     */
     public void validate(Object o, Errors errors) {
         User user = (User) o;
 
