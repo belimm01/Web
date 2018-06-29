@@ -39,13 +39,8 @@ public class WebApplicationTests {
         User user2 = new User();
         user1.setBalance(5000);
         user2.setBalance(6000);
-        
-        System.out.println(user1.getBalance());
-        System.out.println(user2.getBalance());
 
         uc.transferMoney(user1, user2, 5000);
-        System.out.println(user1.getBalance());
-        System.out.println(user2.getBalance());
         assertEquals(user1.getBalance(), 0);
         assertEquals(user2.getBalance(), 11000);
 
