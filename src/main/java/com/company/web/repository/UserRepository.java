@@ -11,6 +11,9 @@ import java.util.Optional;
 // like save(),findOne(),findAll(),count(),delete()etc.
 
 @Repository
+/**
+ * Interface for working with users in database.
+ */
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(String username);
 

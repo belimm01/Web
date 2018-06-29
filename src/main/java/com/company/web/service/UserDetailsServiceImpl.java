@@ -17,6 +17,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
+/**
+ * Implementation of UserDetailsService. Working with userRepository and roleRepository.
+ */
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
@@ -27,6 +30,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     @Transactional(readOnly = true)
+    /**
+     * Loads user from database when signig on. Find and control existence of username in database and its role.
+     */
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
         System.out.println("##############################################################    username "+username);

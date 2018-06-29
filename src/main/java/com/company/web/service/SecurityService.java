@@ -1,5 +1,8 @@
 package com.company.web.service;
-
+/**
+ * Interface for SecurityService of login.
+ * @author User
+ */
 public interface SecurityService {
     String findLoggedInUsername();
 
