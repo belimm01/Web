@@ -40,6 +40,14 @@ public class UserController {
         model.addAttribute("users", new User());
         return "registration";
     }
+    
+    /**
+     * Login user  
+     * @param model
+     * @param error
+     * @param logout
+     * @return 
+     */
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, String error, String logout) {
@@ -49,7 +57,13 @@ public class UserController {
             model.addAttribute("message", "You have been logged out successfully.");
         return "login";
     }
-
+/**
+ * Validate user details, register new user.
+ * @param userForm
+ * @param bindingResult
+ * @param model
+ * @return 
+ */
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registration(@ModelAttribute("users") User userForm, BindingResult bindingResult, Model model) {
         userValidator.validate(userForm, bindingResult);
@@ -76,8 +90,8 @@ public class UserController {
         return "user";
     }
 /**
- * Check if sender have sufficient amount of money, if so, transfer it to recipient.
- * @param userId Id of recipient in form of long.
+ * Get users from database and run method transferMoney.
+ * @param userId Id of recipient in form of integer.
  * @param amount amount of money to send from sender.
  * @param principal sender
  * @return redirects to/user
@@ -87,22 +101,33 @@ public class UserController {
     @RequestMapping(value = "/transfer", method = RequestMethod.POST)
     public String transfer(@RequestParam Long userId, @RequestParam Integer amount, Principal principal) throws Exception {
         User sender = userRepository.findByUsername(principal.getName());
-        if (amount<0){
-            throw new Exception("Incorrect amount");
-        }
+
         if (!userRepository.findById(userId).isPresent()) {
             throw new Exception("Does not exist");
         }
-        User consignee = userRepository.findById(userId).get();
+        User recipient = userRepository.findById(userId).get();
+        transferMoney(sender,recipient,amount);
+        return "redirect:/user";
+    }
+    /**
+     * Check if sender have sufficient amount of money, if so, transfer it to recipient.
+     * @param sender sender in form of user.
+     * @param recipient recipient in form of user
+     * @param amount amount in form of integer.
+     * @throws Exception if amount of money on sender account is insufficient
+     */
+    public void transferMoney(User sender, User recipient, int amount) throws Exception {
+        if (amount<0){
+            throw new Exception("Incorrect amount");
+        }
         if (sender.getBalance() < amount) {
             throw new Exception("No money no honey");
         }
         sender.setBalance(sender.getBalance() - amount);
 
-        consignee.setBalance(consignee.getBalance() + amount);
-        return "redirect:/user";
+        recipient.setBalance(recipient.getBalance() + amount);
     }
-
+    
     @Transactional
     @RequestMapping(value = "/recharge", method = RequestMethod.POST)
     public String recharge(@RequestParam Integer amount, Principal principal) throws Exception {
